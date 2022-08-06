@@ -7,7 +7,7 @@ $(() => {
         }
 
         checkNumber(value) {
-            value = value.replace(',','.');
+            value = value.replace(',', '.');
             return (this.lower_bound <= value && value <= this.upper_bound);
         }
     }
@@ -18,14 +18,14 @@ $(() => {
     };
 
     function isNumber(string) {
-        return /^-?\d+([.,]?\d+)?$/.test(string);
+        return /(^-?\d+([,.]\d+)?)$/.test(string);
     }
 
     function confirm() {
         if(data.y_input.status == data.r_input.status && data.y_input.status == true && $('input[name="x"]:checked').val() != undefined) {
-            $(':submit').removeAttr('disabled');
+            $(':button').removeAttr('disabled');
         } else {
-            $(':submit').prop('disabled', true);
+            $(':button').prop('disabled', true);
         }
     }
 
