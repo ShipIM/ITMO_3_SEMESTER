@@ -2,7 +2,7 @@
     require_once('Hit.php');
     require_once('CachedResultable.php');
     require_once('Row.php');
-    require_once('Container.php');
+    require_once('NumberContainer.php');
     require_once('Timer.php');
     require_once('RadioContainer.php');
     require_once('TextFieldContainer.php');
@@ -29,7 +29,7 @@
 
             $x = new CachedContainable($x);
             $y = new CachedContainable($y);
-            $r = new CachedContainable($r); 
+            $r = new CachedContainable($r);
 
             $hit = new Hit($x, $y, $r);
             $cachedHit = new CachedResultable($hit);
