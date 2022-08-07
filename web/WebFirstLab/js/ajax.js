@@ -1,7 +1,6 @@
 $(() => {
     $('td.input form').on('submit', (element) => {
         let date = new Date().toLocaleString('en-GB', {timezone: 'UTC'});
-        let table = $('.content_table');
 
         $.ajax({
             url: './php/table.php',
