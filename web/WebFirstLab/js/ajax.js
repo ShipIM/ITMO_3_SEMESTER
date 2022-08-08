@@ -1,16 +1,16 @@
 $(() => {
-    $('td.input form').on('submit', (element) => {
+    $('form').on('submit', (element) => {
         let date = new Date().toLocaleString('en-GB', {timezone: 'UTC'});
 
         $.ajax({
             url: './php/table.php',
             method: 'get',
             dataType: 'html',
-            data: $('td.input form').serialize() + "&time=" + date,
+            data: $('form').serialize() + "&time=" + date,
             success: (html) => {
-                $('.content_table').remove();
+                $('#content_table_container > table').remove();
 
-                $('td.content_table_container').append(html); 
+                $('#content_table_container').append(html);
             }
         })
 
@@ -18,7 +18,7 @@ $(() => {
     });
 
     $(':button').on('click', () => {
-        $('td.input form').submit();
+        $('form').submit();
 
         $(':text').val('');
         $(':radio').prop('checked', false);

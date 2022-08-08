@@ -10,12 +10,12 @@
 
     session_start();
  ?>
-<table border = "1" class = "content_table">
+<table>
     <tr>
-        <th>*Данные для проверки*</th>
-        <th>*Результат*</th>
-        <th>*Время запроса*</th>
-        <th>*Время обработки*</th>
+        <th>Данные для проверки</th>
+        <th>Результат</th>
+        <th>Время отправки запроса</th>
+        <th>Время исполнения скрипта</th>
     </tr>
     <?php
         if($_SERVER['REQUEST_METHOD'] == 'GET') {
