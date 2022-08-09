@@ -1,54 +1,43 @@
 $(() => {
     class InputField {
-        constructor(idName, lower_bound, upper_bound) {
-            this.idName = idName;
+        constructor(object, lower_bound, upper_bound) {
+            this.object = object;
             this.lower_bound = lower_bound;
             this.upper_bound = upper_bound;
         }
 
-        check() {
-            function isNumber(string) {
-                return /(^-?\d+([,.]\d+)?)$/.test(string);
-            }
+        result() {
+            let value = this.object.val().replace(',', '.');
 
-            let value = $('#' + this.idName).val();
-    
-            if(!isNumber(value)) {
-                value == "" ? this.error("") : this.error('Необходимо ввести число.');
-            } else if(!this.checkNumber(value)) {
-                this.error('Число должно быть в диапазоне от ' + this.lower_bound + ' до ' + this.upper_bound +'.');
+            if(/(^-?\d+([,.]\d+)?)$/.test(value)) {
+                if(this.lower_bound <= value && value <= this.upper_bound) {
+                    this.object.next('.error').remove();
+                    return true;
+                } else {
+                    this.error('Число должно быть в диапазоне от ' + this.lower_bound + ' до ' + this.upper_bound +'.')
+                }
             } else {
-                $('#' + this.idName + ' + .error').remove();
-                
-                return true;
+                value == "" ? this.error("") : this.error('Необходимо ввести число.');
             }
-
-            return false;
         }
 
         error(cause) {
-            $('#' + this.idName + ' + .error').remove();
-            $('#' + this.idName).after('<span class="error"><b>' + cause + '</b></span>');
-        }
-
-        checkNumber(value) {
-            value = value.replace(',', '.');
-            return (this.lower_bound <= value && value <= this.upper_bound);
+            this.object.next('.error').remove();
+            this.object.after('<span class="error">' + cause + '</span>');
         }
     }
 
-    let y_input = new InputField('y_input', -3, 3);
-    let r_input = new InputField('r_input', 1, 4);
+    let y_input = new InputField($('#y_input'), -3, 3), r_input = new InputField($('#r_input'), 1, 4);
 
     function confirm() {
-        if(y_input.check() == true & r_input.check() == true & $('input[name="x"]:checked').val() != undefined) {
+        if (y_input.result() == true & r_input.result() == true &  $('input[name="x"]:checked').val() != undefined) {
             $(':button').removeAttr('disabled');
         } else {
             $(':button').prop('disabled', true);
         }
     }
 
-    $('#y_input').on("input", () => confirm());
-    $('#r_input').on("input", () => confirm());
-    $('input[name="x"]').on("change", () => confirm());
-});
+    $('#y_input').on('input', () => confirm());
+    $('#r_input').on('input', () => confirm());
+    $('input[name="x"]').on('change', () => confirm());
+})
