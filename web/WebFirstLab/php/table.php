@@ -19,9 +19,9 @@
     </tr>
     <?php
         if($_SERVER['REQUEST_METHOD'] == 'GET') {
-            $x = new Container($_GET['x']);
-            $y = new Container($_GET['y']);
-            $r = new Container($_GET['r']);
+            $x = new NumberContainer($_GET['x']);
+            $y = new NumberContainer($_GET['y']);
+            $r = new NumberContainer($_GET['r']);
 
             $x = new RadioContainer($x, array(-2, -1.5, -1, -0.5, 0, 0.5, 1, 1.5, 2));
             $y = new TextFieldContainer($y, -3, 3);

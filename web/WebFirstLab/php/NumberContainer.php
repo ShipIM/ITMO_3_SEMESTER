@@ -2,7 +2,7 @@
     require_once('WrongInputException.php');
     require_once('Containable.php');
 
-    class Container implements Containable {
+    class NumberContainer implements Containable {
         private $content;
 
         public function __construct($content) {
@@ -10,8 +10,12 @@
         }
 
         public function content() {
-            if(preg_match("/(^-?\d+([,.]\d+)?)$/", $this->content)) {
-                return (float) str_replace(',', '.', $this->content);
+            $tmp = str_replace(',', '.', $this->content);
+            $tmp = preg_replace('/^\s+/', '', $tmp);
+            $tmp = preg_replace('/\s+$/', '', $tmp);
+            
+            if(preg_match('/(^-?\d+(\.\d+)?)$/', $tmp)) {
+                return (float) $tmp;
             }
 
             throw new WrongInputException(); 

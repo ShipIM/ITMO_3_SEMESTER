@@ -7,9 +7,9 @@ $(() => {
         }
 
         result() {
-            let value = this.object.val().replace(',', '.');
+            let value = this.object.val().replace(',', '.').replace(/^\s*/,'').replace(/\s*$/,'');
 
-            if(/(^-?\d+([,.]\d+)?)$/.test(value)) {
+            if(/(^-?\d+(\.\d+)?)$/.test(value)) {
                 if(this.lower_bound <= value && value <= this.upper_bound) {
                     this.object.next('.error').remove();
                     return true;
