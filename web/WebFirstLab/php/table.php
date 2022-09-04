@@ -12,10 +12,14 @@
  ?>
 <table>
     <tr>
-        <th>Данные для проверки</th>
+        <th colspan="3">Данные для проверки</th>
         <th>Результат</th>
         <th>Время отправки запроса</th>
         <th>Время исполнения скрипта</th>
+
+        <col width="10%">
+        <col width="10%">
+        <col width="10%">
     </tr>
     <?php
         if($_SERVER['REQUEST_METHOD'] == 'GET') {
@@ -40,13 +44,15 @@
             $row = new Row($_GET['x'], $_GET['y'], $_GET['r'], $cachedHit->result(), $_GET['time'], $time);
 
             empty($_SESSION['rows']) ? $_SESSION['rows'] = array($row) : array_push($_SESSION['rows'], $row);
+        }
 
+        if(isset($_SESSION['rows'])) {
             $table = '';
             foreach($_SESSION['rows'] as $value) {
                 $table .= $value->data();
             }
-
-            echo $table; 
         }
+
+        echo $table; 
     ?>
 </table>

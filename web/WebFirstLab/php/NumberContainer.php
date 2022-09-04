@@ -10,7 +10,8 @@
         }
 
         public function content() {
-            $tmp = str_replace(',', '.', $this->content);
+            $tmp = substr($this->content, 0, 8);
+            $tmp = str_replace(',', '.', $tmp);
             $tmp = preg_replace('/^\s+/', '', $tmp);
             $tmp = preg_replace('/\s+$/', '', $tmp);
             

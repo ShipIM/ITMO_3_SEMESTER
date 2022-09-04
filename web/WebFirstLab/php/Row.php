@@ -17,7 +17,7 @@
         }
 
         public function data() {
-            return '<tr><td>' . $this->x . ' ' . $this->y . ' ' . $this->r . '</td>'
+            return '<tr><td>' . $this->x . '</td><td>' . $this->y . '</td><td>' . $this->r . '</td>'
                 . '<td>' . $this->result . '</td>'
                 . '<td>' . $this->currentTime . '</td>'
                 . '<td>' . $this->resultTime . '</td></tr>';

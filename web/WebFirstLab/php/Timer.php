@@ -12,7 +12,7 @@
             $time = microtime();
             $this->resultable->result();
             
-            return number_format(microtime() - $time, 7, '.', '.');
+            return number_format(microtime() - $time, 6, '.', '.');
         }   
     }
 ?>
