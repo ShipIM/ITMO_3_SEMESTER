@@ -40,8 +40,9 @@
             $timer = new Timer($cachedHit);
 
             $time = $timer->time();
+            $dateTime = new DateTime('now', new DateTimeZone($_GET['time'])); 
 
-            $row = new Row($_GET['x'], $_GET['y'], $_GET['r'], $cachedHit->result(), $_GET['time'], $time);
+            $row = new Row($_GET['x'], $_GET['y'], $_GET['r'], $cachedHit->result(),  $dateTime->format("d/m/y  H:i A"), $time);
 
             empty($_SESSION['rows']) ? $_SESSION['rows'] = array($row) : array_push($_SESSION['rows'], $row);
         }
@@ -53,6 +54,6 @@
             }
         }
 
-        echo $table; 
+        echo $table;
     ?>
 </table>

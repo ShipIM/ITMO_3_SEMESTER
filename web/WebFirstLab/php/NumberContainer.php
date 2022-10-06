@@ -15,8 +15,10 @@
             $tmp = preg_replace('/^\s+/', '', $tmp);
             $tmp = preg_replace('/\s+$/', '', $tmp);
             
-            if(preg_match('/(^-?\d+(\.\d+)?)$/', $tmp)) {
-                return (float) $tmp;
+            $float_value = (float) $tmp;
+            
+            if(strval($float_value) == $tmp) {
+                return $float_value;
             }
 
             throw new WrongInputException(); 

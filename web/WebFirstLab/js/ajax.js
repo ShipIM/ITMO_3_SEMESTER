@@ -11,13 +11,11 @@ $(() => {
     })
 
     $('form').on('submit', (element) => {
-        let date = new Date().toLocaleString('en-GB', {timezone: 'UTC'});
-
         $.ajax({
             url: './php/table.php',
             method: 'get',
             dataType: 'html',
-            data: $('form').serialize() + "&time=" + date,
+            data: $('form').serialize() + "&time=" + Intl.DateTimeFormat().resolvedOptions().timeZone,
             success: (html) => {
                 $('#content_table_container > table').remove();
 

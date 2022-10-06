@@ -9,7 +9,7 @@ $(() => {
         result() {
             let value = this.object.val().replace(',', '.').replace(/^\s*/,'').replace(/\s*$/,'');
 
-            if(/(^-?\d+(\.\d+)?)$/.test(value)) {
+            if(!isNaN(parseFloat(value)) && isFinite(value)) {
                 if(this.lower_bound <= value && value <= this.upper_bound) {
                     this.object.next('.error').remove();
                     return true;
