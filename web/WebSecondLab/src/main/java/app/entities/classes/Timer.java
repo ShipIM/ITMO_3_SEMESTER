@@ -5,9 +5,9 @@ import app.entities.interfaces.Resultable;
 import java.text.DecimalFormat;
 
 public class Timer {
-    private final Resultable<?> resultable;
+    private final Resultable resultable;
 
-    public Timer(Resultable<?> resultable) {
+    public Timer(Resultable resultable) {
         this.resultable = resultable;
     }
 

@@ -1,5 +1,4 @@
-<%@ page import="app.entities.classes.RowSession" %>
-<%@ page import="app.entities.classes.Row" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="rus">
@@ -233,13 +232,9 @@
                     <th>Время исполнения скрипта</th>
                 </tr>
 
-                <%
-                    RowSession rowSession = new RowSession(request.getSession());
-
-                    for (String row : rowSession.getRows("rows")) {
-                        out.print(row);
-                    }
-                %>
+                <c:forEach var="row" items="${rows}">
+                    <tr>${row}</tr>
+                </c:forEach>
             </table>
         </td>
     </tr>

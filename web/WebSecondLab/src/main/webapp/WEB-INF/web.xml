@@ -4,7 +4,7 @@
          version="2.5"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
-<servlet>
+    <servlet>
         <servlet-name>controller</servlet-name>
         <servlet-class>app.servlets.ControllerServlet</servlet-class>
     </servlet>
@@ -23,4 +23,14 @@
         <servlet-name>check</servlet-name>
         <url-pattern>/check</url-pattern>
     </servlet-mapping>
+
+    <filter>
+        <filter-name>filter</filter-name>
+        <filter-class>app.servlets.HeadersFilter</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>filter</filter-name>
+        <servlet-name>controller</servlet-name>
+    </filter-mapping>
 </web-app>

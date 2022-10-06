@@ -4,16 +4,16 @@ import app.entities.interfaces.Resultable;
 
 import java.util.Optional;
 
-public class CachedResultable<T> implements Resultable<T> {
-    private final Resultable<T> resultable;
-    private T cache;
+public class CachedResultable<T> implements Resultable {
+    private final Resultable resultable;
+    private Result cache;
 
-    public CachedResultable(Resultable<T> resultable) {
+    public CachedResultable(Resultable resultable) {
         this.resultable = resultable;
     }
 
     @Override
-    public T result() {
+    public Result result() {
         return Optional.ofNullable(cache).orElseGet(() -> {
             this.cache = resultable.result();
 

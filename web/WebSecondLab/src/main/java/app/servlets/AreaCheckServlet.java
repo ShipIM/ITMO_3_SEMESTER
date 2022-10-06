@@ -1,6 +1,5 @@
 package app.servlets;
 
-import app.entities.classes.RowSession;
 import app.entities.classes.*;
 
 import javax.servlet.*;
@@ -8,8 +7,8 @@ import javax.servlet.http.*;
 import java.io.IOException;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Optional;
 
 public class AreaCheckServlet extends HttpServlet {
@@ -52,12 +51,13 @@ public class AreaCheckServlet extends HttpServlet {
 
         Row row = new Row(hitCached, timer, dateTime, r, x, y);
 
-        RowSession session = new RowSession(request.getSession());
-        List<String> rowsList = session.getRows("rows");
-        String html = row.toString();
-        rowsList.add(html);
-        session.setRows("rows", rowsList);
+        HttpSession session = request.getSession();
+        String[] rows = (String[]) Optional.ofNullable(session.getAttribute("rows")).orElseGet(() -> new String[0]);
+        ArrayList<String> extendedRows = new ArrayList<>(Arrays.asList(rows));
 
+        String html = row.html();
+        extendedRows.add(html);
+        session.setAttribute("rows", extendedRows.toArray(new String[0]));
         request.setAttribute("row", html);
 
         request.getRequestDispatcher("views/result.jsp").forward(request, response);

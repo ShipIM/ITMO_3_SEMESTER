@@ -4,7 +4,7 @@ import app.entities.exceptions.WrongInputException;
 import app.entities.interfaces.Containable;
 import app.entities.interfaces.Resultable;
 
-public class Hit implements Resultable<String> {
+public class Hit implements Resultable {
     private final Containable<Float> x;
     private final Containable<Float> y;
     private final Containable<Float> r;
@@ -16,7 +16,7 @@ public class Hit implements Resultable<String> {
     }
 
     @Override
-    public String result() {
+    public Result result() {
         boolean result;
 
         try {
@@ -26,10 +26,10 @@ public class Hit implements Resultable<String> {
                 result = y.content() > 0 ? secondQuarter() : thirdQuarter();
             }
         } catch (WrongInputException e) {
-            return "error";
+            return Result.ERROR;
         }
 
-        return result ? "true" : "false";
+        return result ? Result.TRUE : Result.FALSE;
     }
 
     private boolean firstQuarter() throws WrongInputException {

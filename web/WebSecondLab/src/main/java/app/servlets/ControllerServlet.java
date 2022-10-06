@@ -3,6 +3,9 @@ package app.servlets;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
 
 public class ControllerServlet extends HttpServlet {
     @Override
@@ -14,6 +17,11 @@ public class ControllerServlet extends HttpServlet {
                 || request.getParameterMap().containsKey("r")) {
             requestDispatcher = request.getRequestDispatcher("/check");
         } else {
+            HttpSession session = request.getSession();
+            String[] rows = (String[]) Optional.ofNullable(session.getAttribute("rows"))
+                    .orElseGet(() -> new String[0]);
+            request.setAttribute("rows", rows);
+
             requestDispatcher = request.getRequestDispatcher("views/index.jsp");
         }
 

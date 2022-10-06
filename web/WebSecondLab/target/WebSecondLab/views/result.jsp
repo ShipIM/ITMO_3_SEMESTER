@@ -1,4 +1,4 @@
-<%@ page import="app.entities.classes.Row" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="rus">
@@ -94,11 +94,7 @@
                     <th>Время исполнения скрипта</th>
                 </tr>
 
-                <%
-                    String row = (String) request.getAttribute("row");
-
-                    out.print(row);
-                %>
+                <tr>${row}</tr>
 
             </table>
             <form action="${pageContext.request.contextPath}/controller" method="post">
