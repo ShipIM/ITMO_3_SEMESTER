@@ -51,14 +51,18 @@ public class AreaCheckServlet extends HttpServlet {
 
         Row row = new Row(hitCached, timer, dateTime, r, x, y);
 
-        HttpSession session = request.getSession();
-        String[] rows = (String[]) Optional.ofNullable(session.getAttribute("rows")).orElseGet(() -> new String[0]);
-        ArrayList<String> extendedRows = new ArrayList<>(Arrays.asList(rows));
+        synchronized (request.getSession()) {
+            HttpSession session = request.getSession();
 
-        String html = row.html();
-        extendedRows.add(html);
-        session.setAttribute("rows", extendedRows.toArray(new String[0]));
-        request.setAttribute("row", html);
+            String[] rows = (String[]) Optional.ofNullable(session.getAttribute("rows"))
+                    .orElseGet(() -> new String[0]);
+            ArrayList<String> extendedRows = new ArrayList<>(Arrays.asList(rows));
+
+            String html = row.html();
+            extendedRows.add(html);
+            session.setAttribute("rows", extendedRows.toArray(new String[0]));
+            request.setAttribute("row", html);
+        }
 
         request.getRequestDispatcher("views/result.jsp").forward(request, response);
     }
