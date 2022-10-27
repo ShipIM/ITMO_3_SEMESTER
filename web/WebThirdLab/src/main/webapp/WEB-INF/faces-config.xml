@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<faces-config version="2.2" xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
+                                  http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
+    <navigation-rule>
+        <from-view-id>faces/start_page.xhtml</from-view-id>
+
+        <navigation-case>
+            <from-action>#{navigationController.processMain()}</from-action>
+            <from-outcome>main</from-outcome>
+            <to-view-id>faces/main_page.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>faces/main_page.xhtml</from-view-id>
+
+        <navigation-case>
+            <from-action>#{navigationController.processStart()}</from-action>
+            <from-outcome>start</from-outcome>
+            <to-view-id>faces/start_page.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+</faces-config>

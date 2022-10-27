@@ -1,0 +1,81 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xml:lang="rus">
+
+<h:head>
+    <meta content="text/xhtml; charset=utf-8"/>
+    <title>ThirdLab</title>
+
+    <style type="text/css">
+        body {
+            background-color: #00467F;
+            font-size: large;
+        }
+
+        table {
+            margin: auto;
+            width: 100%;
+        }
+
+        #frame {
+            width: 60%;
+            height: auto;
+            text-align: justify;
+        }
+
+        #header {
+            color: black;
+            font-size: medium;
+            font-family: serif;
+            text-align: center;
+        }
+
+        td p {
+            padding-left: 3%;
+            padding-right: 3%;
+            padding-top: 2%;
+            text-align: center;
+            font-family: "Times New Roman", sans-serif;
+            font-size: xxx-large;
+            margin: auto;
+        }
+
+        input {
+            display: block;
+            margin: auto;
+        }
+
+        tr, td, th {
+            border-radius: 12px;
+            background-color: wheat;
+        }
+
+    </style>
+</h:head>
+
+<h:body>
+    <table id="frame">
+        <tr>
+            <th id="header"><b>ФИО: Шипунов Илья Михайлович. Группа: P32111 Вариант: 1159</b></th>
+        </tr>
+        <tr>
+            <td>
+                <p>
+                    <h:outputText id="clock" value="#{clockBean.getTime()}"/>
+                    <p:poll interval="10" listener="#{clockBean.updateTime()}" update="clock"/>
+                </p>
+                <p>
+                    <h:form>
+                        <h:commandButton value="Перейти к основной странице"
+                                         action="#{navigationController.processMain()}"/>
+                    </h:form>
+                </p>
+            </td>
+        </tr>
+    </table>
+</h:body>
+</html>

@@ -1,0 +1,349 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xml:lang="rus">
+
+<h:head>
+    <meta content="text/html; charset=utf-8"/>
+    <title>ThirdLab</title>
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script type="text/javascript" src="js/picture.js"></script>
+    <script type="text/javascript" src="js/buttonsConnected.js"></script>
+
+    <style type="text/css">
+        body {
+            background-color: #00467F;
+            font-size: large;
+        }
+
+        table {
+            margin: auto;
+            width: 100%;
+        }
+
+        #frame {
+            width: 60%;
+            height: auto;
+            text-align: justify;
+        }
+
+        #header {
+            color: black;
+            font-size: medium;
+            font-family: serif;
+            text-align: center;
+        }
+
+        .label {
+            padding-left: 1.5%;
+        }
+
+        .input tr {
+            height: 35px;
+        }
+
+        .input td {
+            padding-right: 1%;
+        }
+
+        td p {
+            padding-left: 3%;
+            padding-right: 3%;
+        }
+
+        ul, ol {
+            padding-right: 3%;
+            padding-left: 7%;
+        }
+
+        ol ul {
+            padding-left: 5%;
+        }
+
+        li {
+            padding-top: 1%;
+        }
+
+        img {
+            display: block;
+            margin: 1% auto 1%;
+        }
+
+        .border {
+            border: thin solid black;
+        }
+
+        #content_table_container > table {
+            font-size: medium;
+            border-collapse: collapse;
+            border: 2px solid black;
+            width: 80%;
+            height: auto;
+            text-align: center;
+            margin-top: 0.5%;
+            margin-bottom: 0.5%;
+        }
+
+        #content_table_container > table td, #content_table_container > table th {
+            border: 2px solid black;
+        }
+
+        .error {
+            color: red;
+            font-size: medium;
+            padding-left: 3%;
+            padding-right: 3%;
+            font-family: 'Times New Roman', Times, serif;
+            text-align: center;
+        }
+
+        tr, td, th {
+            border-radius: 12px;
+            background-color: wheat;
+        }
+
+        td object {
+            padding: 2% 2% 2% 2%;
+            width: 70%;
+            height: 70%;
+            display: block;
+            margin: auto;
+        }
+
+        .redirect {
+            display: block;
+            margin: auto;
+        }
+    </style>
+
+</h:head>
+
+<h:body>
+    <table id="frame">
+        <tr>
+            <th id="header"><b>ФИО: Шипунов Илья Михайлович. Группа: P32111 Вариант: 1159</b></th>
+        </tr>
+        <tr>
+            <td>
+                <p>Разработать приложение на базе JavaServer Faces Framework, которое осуществляет проверку попадания точки в заданную область на координатной плоскости.</p>
+                <p>Приложение должно включать в себя 2 facelets-шаблона - стартовую страницу и основную страницу приложения, а также набор управляемых бинов (managed beans), реализующих логику на стороне сервера.</p>
+                <p><b>Стартовая страница должна содержать следующие элементы:</b></p>
+                <ul>
+                    <li>
+                        <span>"Шапку", содержащую ФИО студента, номер группы и номер варианта.</span>
+                    </li>
+                    <li>
+                        <span>Интерактивные часы, показывающие текущие дату и время, обновляющиеся раз в 10 секунд.</span>
+                    </li>
+                    <li>
+                        <span>Ссылку, позволяющую перейти на основную страницу приложения.</span>
+                    </li>
+                </ul>
+                <p><b>Основная страница приложения должна содержать следующие элементы:</b></p>
+                <ul>
+                    <li>
+                        <span>Набор компонентов для задания координат точки и радиуса области в соответствии с вариантом задания. Может потребоваться использование дополнительных библиотек компонентов - ICEfaces (префикс "ace") и PrimeFaces (префикс "p"). Если компонент допускает ввод заведомо некорректных данных (таких, например, как буквы в координатах точки или отрицательный радиус), то приложение должно осуществлять их валидацию.</span>
+                    </li>
+                    <li>
+                        <span>Динамически обновляемую картинку, изображающую область на координатной плоскости в соответствии с номером варианта и точки, координаты которых были заданы пользователем. Клик по картинке должен инициировать сценарий, осуществляющий определение координат новой точки и отправку их на сервер для проверки её попадания в область. Цвет точек должен зависить от факта попадания / непопадания в область. Смена радиуса также должна инициировать перерисовку картинки.</span>
+                    </li>
+                    <li>
+                        <span>Таблицу со списком результатов предыдущих проверок.</span>
+                    </li>
+                    <li>
+                        <span>Ссылку, позволяющую вернуться на стартовую страницу.</span>
+                    </li>
+                </ul>
+                <p><b>Дополнительные требования к приложению:</b></p>
+                <ul>
+                    <li>
+                        <span>Все результаты проверки должны сохраняться в базе данных под управлением СУБД Oracle.</span>
+                    </li>
+                    <li>
+                        <span>Для доступа к БД необходимо использовать ORM Hibernate.</span>
+                    </li>
+                    <li>
+                        <span>Для управления списком результатов должен использоваться Application-scoped Managed Bean.</span>
+                    </li>
+                    <li>
+                        <span>Конфигурация управляемых бинов должна быть задана с помощью аннотаций.</span>
+                    </li>
+                    <li>
+                        <span>Правила навигации между страницами приложения должны быть заданы в отдельном конфигурационном файле.</span>
+                    </li>
+                </ul>
+                <p>
+                    <h:form>
+                        <h:commandButton styleClass="redirect" value="Вернуться на стартовую страницу"
+                                         action="#{navigationController.processStart()}"/>
+                    </h:form>
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <h:form id="fields_form">
+                    <table class="input">
+
+                        <colgroup>
+                            <col width="22%"/>
+                            <col width="35%"/>
+                        </colgroup>
+
+                        <tr>
+                            <td class="label"><span><b>Выберите значение R:</b></span></td>
+                            <td>
+                                <h:panelGroup id="rButtons">
+                                    <h:commandButton styleClass="r" value="1"
+                                                     action="#{radiusButtonsBean.changeCondition(1)}"
+                                                     disabled="#{radiusButtonsBean.getCondition(1)}">
+                                        <p:ajax update="rButtons" oncomplete="redrawPicture(1)"/>
+                                    </h:commandButton>
+                                    <h:commandButton styleClass="r" value="2"
+                                                     action="#{radiusButtonsBean.changeCondition(2)}"
+                                                     disabled="#{radiusButtonsBean.getCondition(2)}">
+                                        <p:ajax update="rButtons" oncomplete="redrawPicture(2)"/>
+                                    </h:commandButton>
+                                    <h:commandButton styleClass="r" value="3"
+                                                     action="#{radiusButtonsBean.changeCondition(3)}"
+                                                     disabled="#{radiusButtonsBean.getCondition(3)}">
+                                        <p:ajax update="rButtons" oncomplete="redrawPicture(3)"/>
+                                    </h:commandButton>
+                                    <h:commandButton styleClass="r" value="4"
+                                                     action="#{radiusButtonsBean.changeCondition(4)}"
+                                                     disabled="#{radiusButtonsBean.getCondition(4)}">
+                                        <p:ajax update="rButtons" oncomplete="redrawPicture(4)"/>
+                                    </h:commandButton>
+                                    <h:commandButton styleClass="r" value="5"
+                                                     action="#{radiusButtonsBean.changeCondition(5)}"
+                                                     disabled="#{radiusButtonsBean.getCondition(5)}">
+                                        <p:ajax update="rButtons" oncomplete="redrawPicture(5)"/>
+                                    </h:commandButton>
+                                    <h:inputHidden id="rValue" value="#{radiusButtonsBean.value}"
+                                                   required="true"
+                                                   requiredMessage="Необходимо выбрать один из вариантов."/>
+                                    <h:message for="rValue" styleClass="error"/>
+                                </h:panelGroup>
+                            </td>
+                            <td rowspan="3">
+                                <img id="picture" width="70%" height="70%" src=""
+                                     alt="Здесь могло быть ваше изображение"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label"><span><b>Выберите значение X:</b></span></td>
+                            <td>
+                                <h:panelGroup id="xButtons">
+                                    <h:commandButton styleClass="x" value="-4"
+                                                     action="#{xCoordinateButtonsBean.changeCondition(-4)}"
+                                                     disabled="#{xCoordinateButtonsBean.getCondition(-4)}">
+                                        <p:ajax update="xButtons"/>
+                                    </h:commandButton>
+                                    <h:commandButton styleClass="x" value="-3"
+                                                     action="#{xCoordinateButtonsBean.changeCondition(-3)}"
+                                                     disabled="#{xCoordinateButtonsBean.getCondition(-3)}">
+                                        <p:ajax update="xButtons"/>
+                                    </h:commandButton>
+                                    <h:commandButton styleClass="x" value="-2"
+                                                     action="#{xCoordinateButtonsBean.changeCondition(-2)}"
+                                                     disabled="#{xCoordinateButtonsBean.getCondition(-2)}">
+                                        <p:ajax update="xButtons"/>
+                                    </h:commandButton>
+                                    <h:commandButton styleClass="x" value="-1"
+                                                     action="#{xCoordinateButtonsBean.changeCondition(-1)}"
+                                                     disabled="#{xCoordinateButtonsBean.getCondition(-1)}">
+                                        <p:ajax update="xButtons"/>
+                                    </h:commandButton>
+                                    <h:commandButton styleClass="x" value="0"
+                                                     action="#{xCoordinateButtonsBean.changeCondition(0)}"
+                                                     disabled="#{xCoordinateButtonsBean.getCondition(0)}">
+                                        <p:ajax update="xButtons"/>
+                                    </h:commandButton>
+                                    <h:commandButton styleClass="x" value="1"
+                                                     action="#{xCoordinateButtonsBean.changeCondition(1)}"
+                                                     disabled="#{xCoordinateButtonsBean.getCondition(1)}">
+                                        <p:ajax update="xButtons"/>
+                                    </h:commandButton>
+                                    <h:commandButton styleClass="x" value="2"
+                                                     action="#{xCoordinateButtonsBean.changeCondition(2)}"
+                                                     disabled="#{xCoordinateButtonsBean.getCondition(2)}">
+                                        <p:ajax update="xButtons"/>
+                                    </h:commandButton>
+                                    <h:commandButton styleClass="x" value="3"
+                                                     action="#{xCoordinateButtonsBean.changeCondition(3)}"
+                                                     disabled="#{xCoordinateButtonsBean.getCondition(3)}">
+                                        <p:ajax update="xButtons"/>
+                                    </h:commandButton>
+                                    <h:commandButton styleClass="x" value="4"
+                                                     action="#{xCoordinateButtonsBean.changeCondition(4)}"
+                                                     disabled="#{xCoordinateButtonsBean.getCondition(4)}">
+                                        <p:ajax update="xButtons"/>
+                                    </h:commandButton>
+                                    <h:inputHidden id="xValue" value="#{xCoordinateButtonsBean.value}"
+                                                   required="true"
+                                                   requiredMessage="Необходимо выбрать один из вариантов."/>
+                                    <h:message for="xValue" styleClass="error"/>
+                                </h:panelGroup>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label"><span><b>Введите значение Y:</b></span></td>
+                            <td>
+                                <p:inputText id="textField" maxlength="8" placeholder="-4 ... 4"
+                                             value="#{yInputTextBean.value}" required="true"
+                                             requiredMessage="Это поле не может быть пустым.">
+                                    <f:converter converterId="yTextFieldConverter"/>
+                                </p:inputText>
+                                <h:message id="textFieldMessage" for="textField" styleClass="error"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label" colspan="2">
+                                <h:commandButton value="Отправить" action="#{processBean.formRequest()}"
+                                                 styleClass="send" disabled="false" id="formSendButton">
+                                </h:commandButton>
+                            </td>
+                        </tr>
+                    </table>
+                </h:form>
+            </td>
+        </tr>
+        <tr>
+            <td id="content_table_container">
+                <table>
+
+                    <colgroup>
+                        <col width="10%"/>
+                        <col width="10%"/>
+                        <col width="10%"/>
+                    </colgroup>
+
+                    <tr>
+                        <th colspan="3">Данные для проверки</th>
+                        <th>Результат</th>
+                        <th>Время отправки запроса</th>
+                        <th>Время исполнения скрипта</th>
+                    </tr>
+                    <ui:repeat value="#{hitService.all}" var="hit">
+                        <tr>
+                            <td class="result_r">#{hit.r}</td>
+                            <td class="result_x">#{hit.x}</td>
+                            <td class="result_y">#{hit.y}</td>
+                            <td class="result_verdict">#{hit.result}</td>
+                            <td>#{hit.formattedRequestTime()}</td>
+                            <td>#{hit.handle_time}</td>
+                        </tr>
+                    </ui:repeat>
+                </table>
+            </td>
+        </tr>
+    </table>
+</h:body>
+
+</html>
