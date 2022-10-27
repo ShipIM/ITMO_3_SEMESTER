@@ -20,22 +20,22 @@ public class DataBaseHit {
     @Column(name = "result")
     private boolean result;
     @Column(name = "request_time")
-    private LocalDateTime request_time;
+    private LocalDateTime requestTime;
     @Column(name = "handle_time")
-    private String handle_time;
+    private String handleTime;
 
     public DataBaseHit() {
 
     }
 
-    public DataBaseHit(float r, float x, float y, boolean result, LocalDateTime request_time,
-                       String handle_time) {
+    public DataBaseHit(float r, float x, float y, boolean result, LocalDateTime requestTime,
+                       String handleTime) {
         this.r = r;
         this.x = x;
         this.y = y;
         this.result = result;
-        this.request_time = request_time;
-        this.handle_time = handle_time;
+        this.requestTime = requestTime;
+        this.handleTime = handleTime;
     }
 
     public float getR() {
@@ -54,15 +54,15 @@ public class DataBaseHit {
         return result;
     }
 
-    public LocalDateTime getRequest_time() {
-        return request_time;
+    public LocalDateTime getRequestTime() {
+        return requestTime;
     }
 
-    public String getHandle_time() {
-        return handle_time;
+    public String getHandleTime() {
+        return handleTime;
     }
 
     public String formattedRequestTime() {
-        return this.request_time.format(DateTimeFormatter.ofPattern("HH:mm:ss"));
+        return this.requestTime.format(DateTimeFormatter.ofPattern("HH:mm:ss"));
     }
 }

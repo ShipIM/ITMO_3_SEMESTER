@@ -5,7 +5,6 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
       xml:lang="rus">
 
 <h:head>
@@ -14,7 +13,6 @@
 
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script type="text/javascript" src="js/picture.js"></script>
-    <script type="text/javascript" src="js/buttonsConnected.js"></script>
 
     <style type="text/css">
         body {
@@ -79,19 +77,14 @@
             border: thin solid black;
         }
 
-        #content_table_container > table {
+        .content_table {
             font-size: medium;
             border-collapse: collapse;
-            border: 2px solid black;
             width: 80%;
             height: auto;
             text-align: center;
             margin-top: 0.5%;
             margin-bottom: 0.5%;
-        }
-
-        #content_table_container > table td, #content_table_container > table th {
-            border: 2px solid black;
         }
 
         .error {
@@ -188,12 +181,17 @@
         </tr>
         <tr>
             <td>
+                <img id="picture" width="30%" height="30%" src=""
+                     alt="Здесь могло быть ваше изображение"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
                 <h:form id="fields_form">
                     <table class="input">
 
                         <colgroup>
-                            <col width="22%"/>
-                            <col width="35%"/>
+                            <col width="20%"/>
                         </colgroup>
 
                         <tr>
@@ -230,10 +228,6 @@
                                                    requiredMessage="Необходимо выбрать один из вариантов."/>
                                     <h:message for="rValue" styleClass="error"/>
                                 </h:panelGroup>
-                            </td>
-                            <td rowspan="3">
-                                <img id="picture" width="70%" height="70%" src=""
-                                     alt="Здесь могло быть ваше изображение"/>
                             </td>
                         </tr>
                         <tr>
@@ -307,6 +301,9 @@
                             <td class="label" colspan="2">
                                 <h:commandButton value="Отправить" action="#{processBean.formRequest()}"
                                                  styleClass="send" disabled="false" id="formSendButton">
+                                    <p:ajax process="fields_form"
+                                            update="fields_form content_table"
+                                            oncomplete="loadPicture()"/>
                                 </h:commandButton>
                             </td>
                         </tr>
@@ -315,35 +312,30 @@
             </td>
         </tr>
         <tr>
-            <td id="content_table_container">
-                <table>
-
-                    <colgroup>
-                        <col width="10%"/>
-                        <col width="10%"/>
-                        <col width="10%"/>
-                    </colgroup>
-
-                    <tr>
-                        <th colspan="3">Данные для проверки</th>
-                        <th>Результат</th>
-                        <th>Время отправки запроса</th>
-                        <th>Время исполнения скрипта</th>
-                    </tr>
-                    <ui:repeat value="#{hitService.all}" var="hit">
-                        <tr>
-                            <td class="result_r">#{hit.r}</td>
-                            <td class="result_x">#{hit.x}</td>
-                            <td class="result_y">#{hit.y}</td>
-                            <td class="result_verdict">#{hit.result}</td>
-                            <td>#{hit.formattedRequestTime()}</td>
-                            <td>#{hit.handle_time}</td>
-                        </tr>
-                    </ui:repeat>
-                </table>
+            <td>
+                <p:dataTable value="#{hitDAOImpl.all}" var="hit" id="content_table"
+                             styleClass="content_table">
+                    <p:column headerText="R">
+                        <h:outputText value="#{hit.r}" styleClass="result_r"/>
+                    </p:column>
+                    <p:column headerText="X">
+                        <h:outputText value="#{hit.x}" styleClass="result_x"/>
+                    </p:column>
+                    <p:column headerText="Y">
+                        <h:outputText value="#{hit.y}" styleClass="result_y"/>
+                    </p:column>
+                    <p:column headerText="Результат">
+                        <h:outputText value="#{hit.result}" styleClass="result_verdict"/>
+                    </p:column>
+                    <p:column headerText="Время отправки запроса">
+                        <h:outputText value="#{hit.formattedRequestTime()}"/>
+                    </p:column>
+                    <p:column headerText="Время исполнения скрипта">
+                        <h:outputText value="#{hit.handleTime}"/>
+                    </p:column>
+                </p:dataTable>
             </td>
         </tr>
     </table>
 </h:body>
-
 </html>
