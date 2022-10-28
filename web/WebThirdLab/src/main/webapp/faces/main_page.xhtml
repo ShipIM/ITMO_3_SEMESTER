@@ -87,6 +87,12 @@
             margin-bottom: 0.5%;
         }
 
+        body .ui-datatable thead th {
+            background-color: wheat;
+            color: black;
+            text-align: center;
+        }
+
         .error {
             color: red;
             font-size: medium;
@@ -313,8 +319,8 @@
         </tr>
         <tr>
             <td>
-                <p:dataTable value="#{hitDAOImpl.all}" var="hit" id="content_table"
-                             styleClass="content_table">
+                <p:dataTable value="#{hitService.all}" var="hit" id="content_table"
+                             tableStyleClass="content_table">
                     <p:column headerText="R">
                         <h:outputText value="#{hit.r}" styleClass="result_r"/>
                     </p:column>

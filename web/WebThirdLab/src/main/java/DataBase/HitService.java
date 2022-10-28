@@ -10,8 +10,8 @@ import java.util.List;
 @ApplicationScoped
 public class HitService implements Serializable {
 
-    @ManagedProperty(value = "#{hitDAOImpl}")
-    private HitDAO hit;
+    @ManagedProperty(value = "#{hitDAO}")
+    private DAO<DataBaseHit, Integer> hit;
 
     public List<DataBaseHit> getAll() {
         return hit.getAll();
@@ -29,11 +29,11 @@ public class HitService implements Serializable {
         this.hit.create(hit);
     }
 
-    public HitDAO getHit() {
+    public DAO<DataBaseHit, Integer> getHit() {
         return hit;
     }
 
-    public void setHit(HitDAO hit) {
+    public void setHit(DAO<DataBaseHit, Integer> hit) {
         this.hit = hit;
     }
 }

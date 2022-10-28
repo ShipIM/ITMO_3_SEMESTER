@@ -1,6 +1,7 @@
 let picture;
 let coordinates, red_dot, green_dot;
 let image_array, imagesLoaded;
+let x, y, r, verdict;
 
 $(() => {
     coordinates = new Image();
@@ -47,71 +48,69 @@ $(() => {
 })
 
 function loadPicture() {
-    let jQueryCanvas = $('<canvas height=' + coordinates.height + ' width=' + coordinates.width + ' id="canvas"></canvas>');
-    $(document.body).append(jQueryCanvas);
+    x = $('.result_x');
+    y = $('.result_y');
+    r = $('.result_r');
+    verdict = $('.result_verdict');
 
-    let canvas = document.getElementById("canvas");
+    let canvas = createCanvas();
     let context = canvas.getContext('2d');
-
-    let x = $('.result_x');
-    let y = $('.result_y');
-    let r = $('.result_r');
-    let verdict = $('.result_verdict');
-
     context.drawImage(coordinates, 0, 0);
 
     for (let index = 0; index < verdict.length; index++) {
-        let size = jQueryCanvas.width() / 2 * 0.935 / r[index].innerHTML;
-        switch (verdict[index].innerHTML) {
-            case "true": {
-                context.drawImage(green_dot, x[index].innerHTML * size + jQueryCanvas.width() / 2 - green_dot.width / 2, (-1 * y[index].innerHTML * size + jQueryCanvas.height() / 2 - green_dot.height / 2));
-                break;
-            }
-            case "false": {
-                context.drawImage(red_dot, x[index].innerHTML * size + jQueryCanvas.width() / 2 - red_dot.width / 2, (-1 * y[index].innerHTML * size + jQueryCanvas.height() / 2 - red_dot.height / 2));
-                break;
-            }
-        }
+        addPictureOnCanvas(r[index].innerHTML, x[index].innerHTML,
+            y[index].innerHTML, verdict[index].innerHTML, canvas);
     }
 
     picture.attr("src", canvas.toDataURL());
-    jQueryCanvas.remove();
+    canvas.remove();
 }
 
 function redrawPicture(radius) {
-    let jQueryCanvas = $('<canvas height=' + coordinates.height + ' width=' + coordinates.width
-        + ' id="canvas"></canvas>');
-    $(document.body).append(jQueryCanvas);
+    $('#picture + p.error').remove();
 
-    let canvas = document.getElementById("canvas");
+    x = $('.result_x');
+    y = $('.result_y');
+    verdict = $('.result_verdict');
+
+    let canvas = createCanvas();
     let context = canvas.getContext('2d');
-
-    let x = $('.result_x');
-    let y = $('.result_y');
-    let verdict = $('.result_verdict');
-
     context.drawImage(coordinates, 0, 0);
 
     for (let index = 0; index < verdict.length; index++) {
         if ((Math.abs(x[index].innerHTML) - radius * (1 / 0.935)) <= 0
             && (Math.abs(y[index].innerHTML) - radius * (1 / 0.935))) {
-            let size = jQueryCanvas.width() / 2 * 0.935 / radius;
-            switch (verdict[index].innerHTML) {
-                case "true": {
-                    context.drawImage(green_dot, x[index].innerHTML * size + jQueryCanvas.width() / 2
-                        - green_dot.width / 2, (-1 * y[index].innerHTML * size + jQueryCanvas.height() / 2
-                        - green_dot.height / 2));
-                    break;
-                }
-                case "false": {
-                    context.drawImage(red_dot, x[index].innerHTML * size + jQueryCanvas.width() / 2 - red_dot.width / 2,
-                        (-1 * y[index].innerHTML * size + jQueryCanvas.height() / 2 - red_dot.height / 2));
-                    break;
-                }
-            }
+            addPictureOnCanvas(radius, x[index].innerHTML, y[index].innerHTML, verdict[index].innerHTML, canvas);
         }
     }
 
     picture.attr("src", canvas.toDataURL());
-    jQueryCanvas.remove();
+    canvas.remove();
+}
+
+function createCanvas() {
+    let jQueryCanvas = $('<canvas height=' + coordinates.height + ' width=' + coordinates.width
+        + ' id="canvas"></canvas>');
+    $(document.body).append(jQueryCanvas);
+
+    return document.getElementById("canvas");
+}
+
+function addPictureOnCanvas(radius, x, y, verdict, canvas) {
+    let jQueryCanvas = $(canvas);
+    let context = canvas.getContext('2d');
+    let size = jQueryCanvas.width() / 2 * 0.935 / radius;
+    switch (verdict) {
+        case "true": {
+            context.drawImage(green_dot, x * size + jQueryCanvas.width() / 2
+                - green_dot.width / 2, (-1 * y * size + jQueryCanvas.height() / 2
+                - green_dot.height / 2));
+            break;
+        }
+        case "false": {
+            context.drawImage(red_dot, x * size + jQueryCanvas.width() / 2 - red_dot.width / 2,
+                (-1 * y * size + jQueryCanvas.height() / 2 - red_dot.height / 2));
+            break;
+        }
+    }
 }
