@@ -4,7 +4,6 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://java.sun.com/jsf/core"
       xml:lang="rus">
 
 <h:head>
@@ -285,10 +284,10 @@
                                                      disabled="#{xCoordinateButtonsBean.getCondition(4)}">
                                         <p:ajax update="xButtons"/>
                                     </h:commandButton>
-                                    <h:inputHidden id="xValue" value="#{xCoordinateButtonsBean.value}"
+                                    <h:inputHidden id="xField" value="#{xCoordinateButtonsBean.value}"
                                                    required="true"
                                                    requiredMessage="Необходимо выбрать один из вариантов."/>
-                                    <h:message for="xValue" styleClass="error"/>
+                                    <h:message for="xField" styleClass="error"/>
                                 </h:panelGroup>
                             </td>
                         </tr>
@@ -296,9 +295,7 @@
                             <td class="label"><span><b>Введите значение Y:</b></span></td>
                             <td>
                                 <p:inputText id="textField" maxlength="8" placeholder="-4 ... 4"
-                                             value="#{yInputTextBean.value}" required="true"
-                                             requiredMessage="Это поле не может быть пустым.">
-                                    <f:converter converterId="yTextFieldConverter"/>
+                                             value="#{yInputTextBean.value}" converter="yTextFieldConverter">
                                 </p:inputText>
                                 <h:message id="textFieldMessage" for="textField" styleClass="error"/>
                             </td>
@@ -314,6 +311,18 @@
                             </td>
                         </tr>
                     </table>
+                </h:form>
+                <h:form id="hidden_fields_form" style="visibility: hidden">
+                    <h:inputHidden id="xValue" value="#{xCoordinateButtonsBean.value}"/>
+                    <h:inputHidden id="yValue" value="#{yInputTextBean.value}"/>
+                    <h:commandButton action="#{processBean.formRequest()}"
+                                     id="hiddenFormSendButton"
+                                     rendered="true"
+                                     style="visibility: hidden">
+                        <p:ajax process="hidden_fields_form"
+                                update="fields_form content_table"
+                                oncomplete="loadPicture()"/>
+                    </h:commandButton>
                 </h:form>
             </td>
         </tr>

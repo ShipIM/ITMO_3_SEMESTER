@@ -1,7 +1,6 @@
 let picture;
 let coordinates, red_dot, green_dot;
 let image_array, imagesLoaded;
-let x, y, r, verdict;
 
 $(() => {
     coordinates = new Image();
@@ -36,10 +35,10 @@ $(() => {
         if (radius.length === 1) {
             let size = picture.width() / 2 * 0.935 / radius.val();
 
-            document.getElementById("fields_form:xValue").value = width / size;
-            document.getElementById("fields_form:textField").value = height / size;
+            document.getElementById("hidden_fields_form:xValue").value = width / size;
+            document.getElementById("hidden_fields_form:yValue").value = height / size;
 
-            document.getElementById("fields_form:formSendButton").click();
+            document.getElementById("hidden_fields_form:hiddenFormSendButton").click();
         } else {
             error_message.remove();
             picture.after($('<p class="error">Необходимо указать радиус.</p>'));
@@ -48,44 +47,39 @@ $(() => {
 })
 
 function loadPicture() {
-    x = $('.result_x');
-    y = $('.result_y');
-    r = $('.result_r');
-    verdict = $('.result_verdict');
+    $.getJSON("/WebThirdLab_war_exploded/data", function (data) {
+        let canvas = createCanvas();
+        let context = canvas.getContext('2d');
+        context.drawImage(coordinates, 0, 0);
 
-    let canvas = createCanvas();
-    let context = canvas.getContext('2d');
-    context.drawImage(coordinates, 0, 0);
+        for (const element of data) {
+            addPictureOnCanvas(element["r"], element["x"],
+                element["y"], element["result"], canvas);
+        }
 
-    for (let index = 0; index < verdict.length; index++) {
-        addPictureOnCanvas(r[index].innerHTML, x[index].innerHTML,
-            y[index].innerHTML, verdict[index].innerHTML, canvas);
-    }
-
-    picture.attr("src", canvas.toDataURL());
-    canvas.remove();
+        picture.attr("src", canvas.toDataURL());
+        canvas.remove();
+    });
 }
 
 function redrawPicture(radius) {
-    $('#picture + p.error').remove();
+    $.getJSON("/WebThirdLab_war_exploded/data", function (data) {
+        $('#picture + p.error').remove();
 
-    x = $('.result_x');
-    y = $('.result_y');
-    verdict = $('.result_verdict');
+        let canvas = createCanvas();
+        let context = canvas.getContext('2d');
+        context.drawImage(coordinates, 0, 0);
 
-    let canvas = createCanvas();
-    let context = canvas.getContext('2d');
-    context.drawImage(coordinates, 0, 0);
-
-    for (let index = 0; index < verdict.length; index++) {
-        if ((Math.abs(x[index].innerHTML) - radius * (1 / 0.935)) <= 0
-            && (Math.abs(y[index].innerHTML) - radius * (1 / 0.935))) {
-            addPictureOnCanvas(radius, x[index].innerHTML, y[index].innerHTML, verdict[index].innerHTML, canvas);
+        for (const element of data) {
+            if ((Math.abs(element["x"]) - radius * (1 / 0.935)) <= 0
+                && (Math.abs(element["y"]) - radius * (1 / 0.935))) {
+                addPictureOnCanvas(radius, element["x"], element["y"], element["result"], canvas);
+            }
         }
-    }
 
-    picture.attr("src", canvas.toDataURL());
-    canvas.remove();
+        picture.attr("src", canvas.toDataURL());
+        canvas.remove();
+    });
 }
 
 function createCanvas() {
@@ -100,17 +94,12 @@ function addPictureOnCanvas(radius, x, y, verdict, canvas) {
     let jQueryCanvas = $(canvas);
     let context = canvas.getContext('2d');
     let size = jQueryCanvas.width() / 2 * 0.935 / radius;
-    switch (verdict) {
-        case "true": {
-            context.drawImage(green_dot, x * size + jQueryCanvas.width() / 2
-                - green_dot.width / 2, (-1 * y * size + jQueryCanvas.height() / 2
-                - green_dot.height / 2));
-            break;
-        }
-        case "false": {
-            context.drawImage(red_dot, x * size + jQueryCanvas.width() / 2 - red_dot.width / 2,
-                (-1 * y * size + jQueryCanvas.height() / 2 - red_dot.height / 2));
-            break;
-        }
+    if (verdict) {
+        context.drawImage(green_dot, x * size + jQueryCanvas.width() / 2
+            - green_dot.width / 2, (-1 * y * size + jQueryCanvas.height() / 2
+            - green_dot.height / 2));
+    } else {
+        context.drawImage(red_dot, x * size + jQueryCanvas.width() / 2 - red_dot.width / 2,
+            (-1 * y * size + jQueryCanvas.height() / 2 - red_dot.height / 2));
     }
 }

@@ -24,4 +24,14 @@
         <param-name>com.sun.faces.enableRestoreView11Compatibility</param-name>
         <param-value>true</param-value>
     </context-param>
+
+    <servlet>
+        <servlet-name>data</servlet-name>
+        <servlet-class>CustomServlets.HitDataServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>data</servlet-name>
+        <url-pattern>/data</url-pattern>
+    </servlet-mapping>
 </web-app>

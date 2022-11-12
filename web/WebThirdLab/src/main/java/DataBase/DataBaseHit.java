@@ -4,9 +4,8 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-@Entity
-@Table(name = "hits")
-public class DataBaseHit {
+@MappedSuperclass
+public abstract class DataBaseHit {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -3,8 +3,6 @@ package app.servlets;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Optional;
 
 public class ControllerServlet extends HttpServlet {

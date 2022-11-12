@@ -13,6 +13,14 @@ public class HitService implements Serializable {
     @ManagedProperty(value = "#{hitDAO}")
     private DAO<DataBaseHit, Integer> hit;
 
+    public HitService() {
+
+    }
+
+    public HitService(DAO<DataBaseHit, Integer> hit) {
+        this.hit = hit;
+    }
+
     public List<DataBaseHit> getAll() {
         return hit.getAll();
     }

@@ -20,7 +20,7 @@ public abstract class TextFieldConverter implements Converter {
     }
 
     public Object getAsObject(FacesContext context, UIComponent ui, String content) {
-        if (content.equals("")) throw new ConverterException(
+        if (content == null || content.equals("")) throw new ConverterException(
                 new FacesMessage("Поле не должно быть пустым."));
 
         try {
