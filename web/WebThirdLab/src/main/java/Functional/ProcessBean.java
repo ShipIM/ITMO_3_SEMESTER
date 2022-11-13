@@ -1,9 +1,8 @@
 package Functional;
 
-import Containers.RadiusButtonsBean;
-import Containers.XCoordinateButtonsBean;
-import Containers.YInputTextBean;
-import DataBase.DataBaseHit;
+import Containers.*;
+import DataBase.DataBaseStarHit;
+import DataBase.DataBaseTriangleHit;
 import DataBase.HitService;
 import Entities.CachedResultable;
 import Entities.FloatContainer;
@@ -28,6 +27,15 @@ public class ProcessBean implements Serializable {
     @ManagedProperty(value = "#{yInputTextBean}")
     private YInputTextBean y;
 
+    @ManagedProperty(value = "#{typeRadioBean}")
+    private TypeRadioBean type;
+
+    @ManagedProperty(value = "#{triangleRadioBean}")
+    private TriangleRadioBean triangle;
+
+    @ManagedProperty(value = "#{starRadioBean}")
+    private StarRadioBean star;
+
     @ManagedProperty(value = "#{hitService}")
     private HitService service;
 
@@ -45,8 +53,27 @@ public class ProcessBean implements Serializable {
         Timer timer = new Timer(hitCached);
         LocalDateTime dateTime = LocalDateTime.now();
 
-        service.create(new DataBaseHit(this.r.getValue(), this.x.getValue(), this.y.getValue(), hit.result(),
-                dateTime, timer.time()));
+        switch (type.getChosenValue()) {
+            case "TRIANGLE": {
+                service.create(new DataBaseTriangleHit(this.r.getValue(),
+                        this.x.getValue(),
+                        this.y.getValue(),
+                        hit.result(),
+                        dateTime,
+                        timer.time(),
+                        triangle.getChosenValue()));
+                break;
+            }
+            case "STAR": {
+                service.create(new DataBaseStarHit(this.r.getValue(),
+                        this.x.getValue(),
+                        this.y.getValue(),
+                        hit.result(),
+                        dateTime,
+                        timer.time(),
+                        star.getChosenValue()));
+            }
+        }
 
         this.setDefault();
     }
@@ -55,6 +82,9 @@ public class ProcessBean implements Serializable {
         this.r.setDefault();
         this.x.setDefault();
         this.y.setValue(null);
+        this.type.setChosenValue(null);
+        this.star.setChosenValue(null);
+        this.triangle.setChosenValue(null);
     }
 
     public HitService getService() {
@@ -73,6 +103,18 @@ public class ProcessBean implements Serializable {
         return y;
     }
 
+    public StarRadioBean getStar() {
+        return star;
+    }
+
+    public TriangleRadioBean getTriangle() {
+        return triangle;
+    }
+
+    public TypeRadioBean getType() {
+        return type;
+    }
+
     public void setService(HitService service) {
         this.service = service;
     }
@@ -87,5 +129,17 @@ public class ProcessBean implements Serializable {
 
     public void setY(YInputTextBean y) {
         this.y = y;
+    }
+
+    public void setStar(StarRadioBean star) {
+        this.star = star;
+    }
+
+    public void setTriangle(TriangleRadioBean triangle) {
+        this.triangle = triangle;
+    }
+
+    public void setType(TypeRadioBean type) {
+        this.type = type;
     }
 }

@@ -7,7 +7,7 @@ import java.util.AbstractMap;
 import java.util.HashMap;
 import java.util.stream.Stream;
 
-@ManagedBean
+@ManagedBean(eager = true)
 @SessionScoped
 public class RadiusButtonsBean extends CommandButtonsBean implements Serializable {
     public RadiusButtonsBean() {

@@ -6,15 +6,15 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
 
-public abstract class TextFieldConverter implements Converter {
+public abstract class TextFieldFloatConverter implements Converter {
     private float lowerBound;
     private float upperBound;
 
-    public TextFieldConverter() {
+    public TextFieldFloatConverter() {
 
     }
 
-    public TextFieldConverter(float lowerBound, float upperBound) {
+    public TextFieldFloatConverter(float lowerBound, float upperBound) {
         this.lowerBound = lowerBound;
         this.upperBound = upperBound;
     }

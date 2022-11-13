@@ -27,21 +27,33 @@ $(() => {
 
     picture.on("click", (event) => {
         let error_message = $('#picture + p.error');
+        error_message.remove();
         let radius = $('.r:disabled');
+
+        let type = $('[name = fields_form\\:typeOptions]:checked');
+        let star = $('[name = fields_form\\:starOptions]:checked');
+        let triangle = $('[name = fields_form\\:triangleOptions]:checked');
+
         let offset = picture.offset();
         let width = -1 * (picture.width() / 2 - Math.abs(event.pageX - offset.left));
         let height = picture.height() / 2 - Math.abs(event.pageY - offset.top);
 
-        if (radius.length === 1) {
+        if (radius.length === 1 && type.length === 1
+            && ((type.val() === "STAR" && star.length === 1) || (type.val() === "TRIANGLE" && triangle.length === 1))) {
             let size = picture.width() / 2 * 0.935 / radius.val();
 
             document.getElementById("hidden_fields_form:xValue").value = width / size;
             document.getElementById("hidden_fields_form:yValue").value = height / size;
+            document.getElementById("hidden_fields_form:typeValue").value = type.val();
+            document.getElementById("hidden_fields_form:starValue").value =
+                (star.val() !== undefined ? star.val() : 0);
+            document.getElementById("hidden_fields_form:triangleValue").value =
+                (triangle.val() !== undefined ? triangle.val() : 0);
 
             document.getElementById("hidden_fields_form:hiddenFormSendButton").click();
         } else {
             error_message.remove();
-            picture.after($('<p class="error">Необходимо указать радиус.</p>'));
+            picture.after($('<p class="error">Необходимо указать радиус, тип точки и дополнительные параметры.</p>'));
         }
     })
 })

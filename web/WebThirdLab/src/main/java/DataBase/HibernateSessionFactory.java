@@ -15,7 +15,8 @@ public class HibernateSessionFactory {
         if (sessionFactory == null) {
             try {
                 Configuration configuration = new Configuration().configure();
-                configuration.addAnnotatedClass(DataBaseHit.class);
+                configuration.addAnnotatedClass(DataBaseTriangleHit.class);
+                configuration.addAnnotatedClass(DataBaseStarHit.class);
                 StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder()
                         .applySettings(configuration.getProperties());
 

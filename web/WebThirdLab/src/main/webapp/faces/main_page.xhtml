@@ -3,7 +3,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:p="http://primefaces.org/ui"
+      xmlns:p="http://primefaces.org/ui" xmlns:f="http://java.sun.com/jsf/core"
       xml:lang="rus">
 
 <h:head>
@@ -295,9 +295,47 @@
                             <td class="label"><span><b>Введите значение Y:</b></span></td>
                             <td>
                                 <p:inputText id="textField" maxlength="8" placeholder="-4 ... 4"
-                                             value="#{yInputTextBean.value}" converter="yTextFieldConverter">
+                                             value="#{yInputTextBean.value}"
+                                             converter="yTextFieldFloatConverter">
                                 </p:inputText>
                                 <h:message id="textFieldMessage" for="textField" styleClass="error"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label"><span><b>Выберите тип точки:</b></span></td>
+                            <td>
+                                <h:selectOneRadio id="typeOptions"
+                                                  value="#{typeRadioBean.chosenValue}"
+                                                  required="true"
+                                                  requiredMessage="Необходимо выбрать один из вариантов.">
+                                    <f:selectItems value="#{typeRadioBean.values}"/>
+                                    <f:ajax execute="typeOptions"/>
+                                </h:selectOneRadio>
+                                <h:message id="typeMessage" for="typeOptions" styleClass="error"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label"><span><b>Выберите количество лучей:</b></span></td>
+                            <td>
+                                <h:selectOneRadio id="starOptions" value="#{starRadioBean.chosenValue}"
+                                                  required="#{typeRadioBean.star}"
+                                                  requiredMessage="Необходимо выбрать один из вариантов.">
+                                    <f:selectItems value="#{starRadioBean.values}"/>
+                                    <f:ajax execute="starOptions"/>
+                                </h:selectOneRadio>
+                                <h:message id="starMessage" for="starOptions" styleClass="error"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label"><span><b>Введите длину стороны:</b></span></td>
+                            <td>
+                                <h:selectOneRadio id="triangleOptions" value="#{triangleRadioBean.chosenValue}"
+                                                  required="#{typeRadioBean.triangle}"
+                                                  requiredMessage="Необходимо выбрать один из вариантов.">
+                                    <f:selectItems value="#{triangleRadioBean.values}"/>
+                                    <f:ajax execute="triangleOptions"/>
+                                </h:selectOneRadio>
+                                <h:message id="triangleMessage" for="triangleOptions" styleClass="error"/>
                             </td>
                         </tr>
                         <tr>
@@ -315,6 +353,9 @@
                 <h:form id="hidden_fields_form" style="visibility: hidden">
                     <h:inputHidden id="xValue" value="#{xCoordinateButtonsBean.value}"/>
                     <h:inputHidden id="yValue" value="#{yInputTextBean.value}"/>
+                    <h:inputHidden id="typeValue" value="#{typeRadioBean.chosenValue}"/>
+                    <h:inputHidden id="starValue" value="#{starRadioBean.chosenValue}"/>
+                    <h:inputHidden id="triangleValue" value="#{triangleRadioBean.chosenValue}"/>
                     <h:commandButton action="#{processBean.formRequest()}"
                                      id="hiddenFormSendButton"
                                      rendered="true"

@@ -1,7 +1,8 @@
 package CustomServlets;
 
-import DataBase.HitDAO;
 import DataBase.HitService;
+import DataBase.StarHitDAO;
+import DataBase.TriangleHitDAO;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
@@ -18,7 +19,7 @@ public class HitDataServlet extends HttpServlet {
 
     @Override
     public void init(ServletConfig config) {
-        this.service = new HitService(new HitDAO());
+        this.service = new HitService(new TriangleHitDAO(), new StarHitDAO());
     }
 
     @Override

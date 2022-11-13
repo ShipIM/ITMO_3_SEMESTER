@@ -13,20 +13,20 @@ public class DataBaseTriangleHit extends DataBaseHit {
     }
 
     public DataBaseTriangleHit(float r, float x, float y, boolean result, LocalDateTime requestTime,
-                               String handleTime, float sideLength) {
+                               String handleTime, int sideLength) {
         super(r, x, y, result, requestTime, handleTime);
 
         this.sideLength = sideLength;
     }
 
     @Column(name = "side_length")
-    private float sideLength;
+    private int sideLength;
 
     public float getSideLength() {
         return sideLength;
     }
 
-    public void setSideLength(float sideLength) {
+    public void setSideLength(int sideLength) {
         this.sideLength = sideLength;
     }
 }
